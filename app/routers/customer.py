@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-
+from app.core.database import get_db
 from app.core.database import SessionLocal
 from app.schemas.customer import CustomerCreate, CustomerResponse
 from app.crud.customer import (
@@ -15,14 +15,6 @@ router = APIRouter(
     prefix="/customers",
     tags=["Customers"]
 )
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @router.post("/", response_model=CustomerResponse)

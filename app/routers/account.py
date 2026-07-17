@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-
+from app.core.database import get_db
 from app.core.database import SessionLocal
 from app.schemas.account import AccountCreate, AccountResponse
 from app.crud.account import (
@@ -15,14 +15,6 @@ router = APIRouter(
     prefix="/accounts",
     tags=["Accounts"]
 )
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @router.post("/", response_model=AccountResponse, summary="creates account")

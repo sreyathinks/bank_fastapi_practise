@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-
+from app.core.database import get_db
 from app.core.database import SessionLocal
 from app.schemas.transaction import (
     TransactionCreate,
@@ -18,15 +18,6 @@ router = APIRouter(
     prefix="/transactions",
     tags=["Transactions"]
 )
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
 
 @router.post("/", response_model=TransactionResponse)
 def add_transaction(

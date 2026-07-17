@@ -10,13 +10,8 @@ class TransactionCreate(BaseModel):
     transaction_type: TransactionType
     description: str
 
-
-class TransactionResponse(BaseModel):
+class TransactionResponse(TransactionCreate):
     id: int
-    account_id: int
-    amount: float
-    transaction_type: str
-    description: str
 
     class Config:
         from_attributes = True

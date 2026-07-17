@@ -8,15 +8,9 @@ class CustomerCreate(BaseModel):
 
     phone:str
 
-class CustomerResponse(BaseModel):
+class CustomerResponse(CustomerCreate):
 
     id:int
-
-    name:str
-
-    email:str
-
-    phone:str
 
     class Config:
         from_attributes=True

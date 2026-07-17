@@ -7,11 +7,8 @@ class AccountCreate(BaseModel):
     customer_id: int
 
 
-class AccountResponse(BaseModel):
+class AccountResponse(AccountCreate):
     id: int
-    account_number: str
-    balance: float
-    customer_id: int
 
     class Config:
         from_attributes = True

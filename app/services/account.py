@@ -4,7 +4,7 @@ from fastapi import HTTPException
 import app.crud.account as cruds
 
 def create_account(db:Session, account: AccountCreate):
-    existing = cruds.get(db, account.account_number)
+    existing = cruds.get_by_account_number(db, account.account_number)
 
     if existing:
         raise HTTPException(
@@ -37,7 +37,7 @@ def update_account(db:Session, account_id: int, account: AccountCreate):
             detail="Account does not exist"
         )
 
-    duplicate = cruds.gets(
+    duplicate = cruds.get_by_account_number(
         db,
         account.account_number
     )

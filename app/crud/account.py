@@ -24,6 +24,12 @@ def get(db: Session, account_id: int):
         Account.id == account_id
     ).first()
 
+def get_by_account_number(db: Session, account_number: str):
+    return (
+        db.query(Account)
+        .filter(Account.account_number == account_number)
+        .first()
+    )
 
 def gets(db: Session):
 

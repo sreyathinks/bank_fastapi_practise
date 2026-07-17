@@ -4,7 +4,7 @@ from app.schemas.transaction import TransactionCreate
 from app.models.account import Account
 from fastapi import HTTPException
 
-def create_transaction(db: Session, transaction: TransactionCreate):
+def create(db: Session, transaction: TransactionCreate):
 
     account = db.query(Account).filter(
         Account.id == transaction.account_id
@@ -36,19 +36,30 @@ def create_transaction(db: Session, transaction: TransactionCreate):
     return db_transaction
 
 
-def get_transaction(db: Session, transaction_id: int):
+def get(db: Session, transaction_id: int):
 
     return db.query(Transaction).filter(
         Transaction.id == transaction_id
     ).first()
 
 
-def get_transactions(db: Session):
+def gets(db: Session):
 
     return db.query(Transaction).all()
 
+def get_by_account_id(
+    db: Session,
+    account_id: int
+):
+    return (
+        db.query(Transaction)
+        .filter(
+            Transaction.account_id == account_id
+        )
+        .all()
+    )
 
-def update_transaction(
+def update(
     db: Session,
     transaction_id: int,
     transaction: TransactionCreate
@@ -70,7 +81,7 @@ def update_transaction(
     return db_transaction
 
 
-def delete_transaction(db: Session, transaction_id: int):
+def delete(db: Session, transaction_id: int):
 
     db_transaction = db.query(Transaction).filter(
         Transaction.id == transaction_id

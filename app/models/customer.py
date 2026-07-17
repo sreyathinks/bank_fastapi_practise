@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, func
+from sqlalchemy import Column, Integer, String, DateTime, func, Boolean
 from app.core.database import Base
 
 
@@ -17,3 +17,7 @@ class Customer(Base):
         server_default=func.now(),
         onupdate=func.now()
     )
+
+    deleted_at = Column(DateTime, nullable=True)
+
+    is_deleted = Column(Boolean, default=False)

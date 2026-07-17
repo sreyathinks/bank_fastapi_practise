@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, String, ForeignKey, DateTime, func
+from sqlalchemy import Column, Integer, Float, String, ForeignKey, DateTime, func, Boolean
 from app.core.database import Base
 
 
@@ -34,3 +34,7 @@ class Transaction(Base):
         server_default=func.now(),
         onupdate=func.now()
     )
+
+    deleted_at = Column(DateTime, nullable=True)
+
+    is_deleted = Column(Boolean, default=False)

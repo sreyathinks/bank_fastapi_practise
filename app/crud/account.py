@@ -3,7 +3,7 @@ from app.models.account import Account
 from app.schemas.account import AccountCreate
 
 
-def create_account(db: Session, account: AccountCreate):
+def create(db: Session, account: AccountCreate):
 
     db_account = Account(
         account_number=account.account_number,
@@ -18,19 +18,19 @@ def create_account(db: Session, account: AccountCreate):
     return db_account
 
 
-def get_account(db: Session, account_id: int):
+def get(db: Session, account_id: int):
 
     return db.query(Account).filter(
         Account.id == account_id
     ).first()
 
 
-def get_accounts(db: Session):
+def gets(db: Session):
 
     return db.query(Account).all()
 
 
-def update_account(db: Session, account_id: int, account: AccountCreate):
+def update(db: Session, account_id: int, account: AccountCreate):
 
     db_account = db.query(Account).filter(
         Account.id == account_id
@@ -47,7 +47,7 @@ def update_account(db: Session, account_id: int, account: AccountCreate):
     return db_account
 
 
-def delete_account(db: Session, account_id: int):
+def delete(db: Session, account_id: int):
 
     db_account = db.query(Account).filter(
         Account.id == account_id

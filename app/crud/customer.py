@@ -2,8 +2,7 @@ from sqlalchemy.orm import Session
 from app.models.customer import Customer
 from app.schemas.customer import CustomerCreate
 
-
-def create_customer(db: Session, customer: CustomerCreate):
+def create(db: Session, customer: CustomerCreate):
 
     db_customer = Customer(
         name=customer.name,
@@ -17,20 +16,24 @@ def create_customer(db: Session, customer: CustomerCreate):
 
     return db_customer
 
+def get_by_email(db: Session, email: str):
+    return  (
+        db.query(Customer)
+        .filter(Customer.email == email)
+        .first()
+    )
 
-def get_customer(db: Session, customer_id: int):
-
+def get(db: Session, customer_id: int):
     return db.query(Customer).filter(
         Customer.id == customer_id
     ).first()
 
 
-def get_customers(db: Session):
-
+def gets(db: Session):
     return db.query(Customer).all()
 
 
-def update_customer(db: Session, customer_id: int, customer: CustomerCreate):
+def update(db: Session, customer_id: int, customer: CustomerCreate):
 
     db_customer = db.query(Customer).filter(
         Customer.id == customer_id
@@ -47,7 +50,7 @@ def update_customer(db: Session, customer_id: int, customer: CustomerCreate):
     return db_customer
 
 
-def delete_customer(db: Session, customer_id: int):
+def delete(db: Session, customer_id: int):
 
     db_customer = db.query(Customer).filter(
         Customer.id == customer_id
